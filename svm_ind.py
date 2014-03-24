@@ -43,7 +43,7 @@ def svm_ind(X, Y, C, k):
     #%%%%%%%%%%%%%%%%%%%%%%%
     #% Get support vectors %
     #%%%%%%%%%%%%%%%%%%%%%%%
-    sv = A > 1e-5
+    sv = (A > 1e-5) == (A < C)
     ind = np.arange(len(A))[sv]
     SA = A[sv]
     SX = X[sv]
@@ -55,7 +55,9 @@ def svm_ind(X, Y, C, k):
     b = 0.
     for n in range(len(SA)):
 	b += SY[n]
-	b -= np.sum(SA * SY * H[ind[n],sv])
+	for j in  range(len(SA)):
+	  b -=SA[j]*SY[j]*k(SX[j],SX[n])
+	#b -= np.sum(SA * SY * H[ind[n],sv])
     
     b /= len(SA)
     
@@ -66,7 +68,7 @@ def svm_ind(X, Y, C, k):
 	#% Compute class
 	y = b
 	for q in range(len(SA)):
-	    y += SA[q] * SY[q] * k(SX[q, :], x)
+	    y += SA[q] * SY[q] * k(SX[q], x)
         
 	return y
 	

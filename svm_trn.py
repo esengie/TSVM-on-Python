@@ -1,6 +1,6 @@
-import cvxopt as cv
-import cvxopt.solvers
-import svm_ind as ind
+#import cvxopt as cv
+#import cvxopt.solvers
+from svm_ind import svm_ind
 import numpy as np
 import time
 
@@ -36,6 +36,8 @@ def svm_trn(X1, X2, X3, C1, C2, k):
     #%       SY(s,1) = Support vector labels
     #%       SA(s,1) = Support vector alphas (Lagrange multipliers)
     #%       t(1,1)  = Computation time in seconds
+    #% Start timer
+    t2 = time.time()
     #% Get input size
     n1 = np.shape(X1)[0]
     n2 = np.shape(X2)[0]
@@ -45,12 +47,9 @@ def svm_trn(X1, X2, X3, C1, C2, k):
     Y = np.hstack([np.ones(n1), -np.ones(n2)])
     C = C1 * np.ones(n1+n2)
     #% Learn initial model
-    f, SX, SY, SA, t = ind.svm_ind(X, Y, C, k)
-    
-    
+    f, SX, SY, SA, t = svm_ind(X, Y, C, k)
+   
     if n3 > 0:
-	#% Start timer
-	t2 = time.time()
 	#% Sign neutral data
 	Y3 = np.zeros(n3)
 	for i in np.arange(0, n3):
@@ -80,7 +79,7 @@ def svm_trn(X1, X2, X3, C1, C2, k):
 
 	    while switched:
 		#% Get new classifier
-		f,SX,SY,SA,useless = ind.svm_ind(X,Y,np.hstack([C,C3]),k);
+		f,SX,SY,SA,useless = svm_ind(X,Y,np.hstack([C,C3]),k);
 
 		#% Switch data labels
 		switched = 0
