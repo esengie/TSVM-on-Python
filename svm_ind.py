@@ -43,7 +43,7 @@ def svm_ind(X, Y, C, k):
     #%%%%%%%%%%%%%%%%%%%%%%%
     #% Get support vectors %
     #%%%%%%%%%%%%%%%%%%%%%%%
-    sv = (A > 1e-5) == (A < (C-1e-5))
+    sv = (A > 1e-10)# == (A < (C-1e-5))
     ind = np.arange(len(A))[sv]
     SA = A[sv]
     SX = X[sv]

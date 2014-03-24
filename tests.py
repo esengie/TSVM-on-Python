@@ -3,10 +3,10 @@
 import numpy as np
 import svm_trn as tt
 import svm_ind as ind
-import kernel_gen_lin as ff
+import kernel_gen_pol as ff
 import svm_ovo
 
-nnm = ff.kernel_gen_lin()
+nnm = ff.kernel_gen_pol([1,2])
 x1 = np.zeros((4,1))
 x2 = np.zeros((4,1))
 x3 = np.zeros((4,1))
@@ -22,6 +22,7 @@ x3[0]=100
 x3[1]=1
 x3[2]=12
 x3[3]=46
+
 C1 = 10
 C2 = 5
 g, h, i, o, io = tt.svm_trn(x1,x2,[],C1,C2,nnm)

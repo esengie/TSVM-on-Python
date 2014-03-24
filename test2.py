@@ -1,11 +1,11 @@
 
 #svm_ovo
 import numpy as np
-import kernel_gen_lin as ff
+import kernel_gen_pol as ff
 import svm_ovo as svm1
 import svm_ova as svm2
 
-nnm = ff.kernel_gen_lin()
+nnm = ff.kernel_gen_pol([2,5])
 n = np.array([])
 x1 = np.zeros((12,1))
 y1 = np.zeros(12)
@@ -37,6 +37,10 @@ y1[8]=-1
 y1[9]=-1
 y1[10]=-1
 y1[11]=-1
+
+x1 = np.array([[3,3],[1,7],[2,9], [1,6]])
+y1 = np.array([1,2,3,2])
+
 
 f, SX, SY, SA, t = svm1.svm_ovo(x1, y1, n, C1, C2, nnm)
 f, SX, SY, SA, t = svm2.svm_ova(x1, y1, n, C1, C2, nnm) 
