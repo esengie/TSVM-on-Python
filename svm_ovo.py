@@ -53,9 +53,10 @@ def svm_ovo(X, Y, N, C1, C2, k):
     f_list1 = [None]*f_size
     f_list2 = [None]*f_size
     f_list3 = [None]*f_size
-    
+    SX = X
+    SY = Y
+    SA = Y
     m = 0
-    
     for i in range(c_size - 1):
 	for j in range(i+1, c_size):
 	    #% Prepare data
@@ -63,7 +64,6 @@ def svm_ovo(X, Y, N, C1, C2, k):
 	    
 	    #% Learn classifier
 	    f,SX_new,SY_new,SA_new,useless = svm_trn(X1,X2,N,C1,C2,k)
-
 	    #% Store classifier
 	    f_list1[m] = i
 	    f_list2[m] = j
